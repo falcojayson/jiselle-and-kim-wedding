@@ -199,7 +199,7 @@
       }
       intro.classList.add("is-opening");
       introOpen.disabled = true;
-      window.setTimeout(() => finishIntro(true), 2600);
+      window.setTimeout(() => finishIntro(true), 3250);
     });
     introSkip.addEventListener("click", () => finishIntro(false));
     document.addEventListener("keydown", event => {
