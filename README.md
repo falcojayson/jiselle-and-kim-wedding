@@ -7,7 +7,7 @@ A free, static wedding invitation for GitHub Pages. RSVP answers go to Google Fo
 1. Open `config.js` and replace every sample name, date, venue, address, map, dress code, and note. Dates use ISO format with the Philippine offset (`+08:00`).
 2. Create a Google Form with fields such as guest name, attendance, number of seats, and dietary notes. Publish it and copy its **responder** link into `rsvpFormUrl` in `config.js`.
 3. In the Form's **Responses** tab, choose **Link to Sheets** to create or select your private response spreadsheet. Keep the spreadsheet private; never put its URL or credentials into this website.
-4. Set `isSample: false` after checking every detail. The sample banner then disappears.
+4. Check every detail before publishing; the initial date, times, and text are placeholders.
 5. Preview `index.html` in a local browser. Test the map links, calendar link, and RSVP form with a sample response.
 
 ## Publish on GitHub Pages

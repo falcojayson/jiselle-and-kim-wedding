@@ -1,6 +1,5 @@
 // Replace all sample details before publishing. Keep dates in ISO format.
 window.invitation = {
-  isSample: true,
   partnerOne: "Jiselle",
   partnerTwo: "Kim",
   date: "2027-06-20T15:00:00+08:00",

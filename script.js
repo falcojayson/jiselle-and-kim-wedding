@@ -24,7 +24,6 @@
   const rsvpButton = document.getElementById("rsvpButton");
   if (formUrl) { rsvpButton.href = formUrl; rsvpButton.target = "_blank"; rsvpButton.rel = "noopener noreferrer"; rsvpButton.removeAttribute("aria-disabled"); rsvpButton.firstChild.textContent = "Send your RSVP "; document.getElementById("rsvpHelp").hidden = true; }
   else rsvpButton.addEventListener("click", event => event.preventDefault());
-  if (!data.isSample) document.getElementById("sampleNotice").hidden = true;
   document.title = `${data.partnerOne} & ${data.partnerTwo} | Wedding Invitation`;
   const calendar = document.getElementById("calendarLink");
   const end = new Date(data.calendarEnd);
