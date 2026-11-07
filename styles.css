@@ -260,3 +260,12 @@ body.intro-active { overflow: hidden; }
   .envelope-intro.is-opening .intro-card { animation: none; }
   .envelope-intro.is-leaving { transition: none; }
 }
+
+/* Keep the opening covered while its artwork and embedded RSVP prepare. */
+.loading-screen { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; background: #f8f0ec; color: #4d3c32; transition: opacity .3s ease, visibility .3s ease; }
+.loading-screen.is-ready { opacity: 0; visibility: hidden; pointer-events: none; }
+.loading-inner { display: grid; justify-items: center; gap: 17px; font-size: 13px; letter-spacing: .08em; }
+.loading-mark { font: italic 38px "Playfair Display", Georgia, serif; letter-spacing: 0; }
+.loading-spinner { width: 27px; height: 27px; border: 2px solid #d6c5ae; border-top-color: #715b3e; border-radius: 50%; animation: loading-spin .8s linear infinite; }
+@keyframes loading-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .loading-spinner { animation: none; } .loading-screen { transition: none; } }

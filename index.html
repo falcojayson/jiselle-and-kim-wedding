@@ -14,6 +14,9 @@
   <script src="script.js" defer></script>
 </head>
 <body>
+  <div class="loading-screen" id="loadingScreen" role="status" aria-live="polite">
+    <div class="loading-inner"><span class="loading-mark">K &amp; J</span><span class="loading-spinner" aria-hidden="true"></span><span>Preparing your invitation…</span></div>
+  </div>
   <svg class="svg-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <symbol id="floral-sprig" viewBox="0 0 150 54">
       <path d="M13 43 C38 33 48 22 72 25 C91 28 107 19 137 10" fill="none" stroke="#8d9273" stroke-width="1.5" stroke-linecap="round"/>
@@ -98,7 +101,7 @@
 
     <section class="notes-section section-pad"><div><p class="eyebrow">A few thoughtful details</p><h2>Come as you are,<br><em>celebrate with us.</em></h2></div><div class="notes-list"><div><h3>Dress code</h3><p id="dressCode">Garden formal. Light, comfortable colors are welcome.</p></div><div><h3>A little note</h3><p id="additionalNote">Please arrive 20 minutes before the ceremony. We look forward to seeing you!</p></div></div></section>
 
-    <section class="rsvp-section section-pad" id="rsvp"><p class="eyebrow">We saved you a seat</p><h2>Will you join us?</h2><p id="rsvpDeadline">RSVP deadline to be announced.</p><p class="rsvp-help" id="rsvpHelp">The RSVP form will appear here once the Google Apps Script is connected.</p><iframe class="rsvp-frame" id="rsvpFrame" title="Wedding RSVP form" loading="lazy" hidden></iframe><p class="rsvp-open" id="rsvpOpenWrap" hidden><a id="rsvpOpen" target="_blank" rel="noopener noreferrer">Open RSVP form in a new tab ↗</a></p></section>
+    <section class="rsvp-section section-pad" id="rsvp"><p class="eyebrow">We saved you a seat</p><h2>Will you join us?</h2><p id="rsvpDeadline">RSVP deadline to be announced.</p><p class="rsvp-help" id="rsvpHelp">Loading the RSVP form…</p><iframe class="rsvp-frame" id="rsvpFrame" title="Wedding RSVP form" loading="eager" hidden></iframe><p class="rsvp-open" id="rsvpOpenWrap" hidden><a id="rsvpOpen" target="_blank" rel="noopener noreferrer">Open RSVP form in a new tab ↗</a></p></section>
   </main>
   <footer><a class="footer-monogram" href="#home" id="footerNames">Kim & Jiselle</a><p>Made with love, for the people we love.</p><button id="shareButton" type="button">Copy invitation link ↗</button></footer>
 </body>

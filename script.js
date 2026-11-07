@@ -23,6 +23,13 @@
     if (event.key === "Escape") closeMenu();
   });
 
+  const loadingScreen = document.getElementById("loadingScreen");
+  const preloadImage = (source) => new Promise(resolve => {
+    const picture = new Image();
+    picture.onload = picture.onerror = resolve;
+    picture.src = source;
+    if (picture.complete) resolve();
+  });
   const heroPhoto = document.getElementById("heroPhoto");
   if (data.heroPhotoUrl) {
     heroPhoto.addEventListener("load", () => {
@@ -93,12 +100,38 @@
   }
 
   const webAppUrl = safeUrl(data.rsvpWebAppUrl);
+  const rsvpFrame = document.getElementById("rsvpFrame");
+  const rsvpHelp = document.getElementById("rsvpHelp");
+  let rsvpReady = Promise.resolve();
   if (webAppUrl && webAppUrl.includes("script.google.com/") && webAppUrl.endsWith("/exec")) {
-    document.getElementById("rsvpFrame").src = webAppUrl;
-    document.getElementById("rsvpFrame").hidden = false;
     document.getElementById("rsvpOpen").href = webAppUrl;
     document.getElementById("rsvpOpenWrap").hidden = false;
-    document.getElementById("rsvpHelp").hidden = true;
+    rsvpReady = new Promise(resolve => {
+      let settled = false;
+      const complete = (loaded) => {
+        if (settled) {
+          if (loaded) {
+            rsvpFrame.hidden = false;
+            rsvpHelp.hidden = true;
+          }
+          return;
+        }
+        settled = true;
+        if (loaded) {
+          rsvpFrame.hidden = false;
+          rsvpHelp.hidden = true;
+        } else {
+          rsvpHelp.textContent = "The RSVP form is taking longer to load. Please open it in a new tab below.";
+        }
+        resolve();
+      };
+      rsvpFrame.addEventListener("load", () => complete(true), { once: true });
+      rsvpFrame.addEventListener("error", () => complete(false), { once: true });
+      window.setTimeout(() => complete(false), 12000);
+      rsvpFrame.src = webAppUrl;
+    });
+  } else {
+    rsvpHelp.textContent = "The RSVP form will appear here once it is connected.";
   }
 
   document.title = `${data.partnerOne} & ${data.partnerTwo} | Wedding Invitation`;
@@ -160,6 +193,20 @@
     }
   });
   music.play().catch(updateMusicControl);
+  const musicReady = new Promise(resolve => {
+    if (music.readyState >= 2) { resolve(); return; }
+    music.addEventListener("loadeddata", resolve, { once: true });
+    music.addEventListener("error", resolve, { once: true });
+    window.setTimeout(resolve, 6000);
+  });
+  const artworkReady = Promise.all([
+    preloadImage("images/satin-bow.png"),
+    preloadImage("images/floral-invitation-card.png"),
+    data.heroPhotoUrl ? preloadImage(data.heroPhotoUrl) : Promise.resolve(),
+    document.fonts ? document.fonts.ready : Promise.resolve(),
+    musicReady,
+    rsvpReady
+  ]);
   const intro = document.getElementById("envelopeIntro");
   const introOpen = document.getElementById("envelopeOpen");
   const introSkip = document.getElementById("introSkip");
@@ -185,11 +232,18 @@
     } else close();
   };
 
+  artworkReady.then(() => {
+    if (!introSeen) {
+      intro.hidden = false;
+      document.body.classList.add("intro-active");
+      pageAreas.forEach(area => { if (area) area.inert = true; });
+      introOpen.focus({ preventScroll: true });
+    }
+    loadingScreen.classList.add("is-ready");
+    window.setTimeout(() => { loadingScreen.hidden = true; }, 350);
+  });
+
   if (!introSeen) {
-    intro.hidden = false;
-    document.body.classList.add("intro-active");
-    pageAreas.forEach(area => { if (area) area.inert = true; });
-    introOpen.focus({ preventScroll: true });
     introOpen.addEventListener("click", () => {
       if (intro.classList.contains("is-opening")) return;
       music.play().catch(updateMusicControl);
