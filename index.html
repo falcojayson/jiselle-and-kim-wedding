@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="images/din%20and%20kim.jpg" fetchpriority="high">
   <link rel="stylesheet" href="styles.css">
   <script src="config.js" defer></script>
   <script src="script.js" defer></script>
@@ -36,7 +37,7 @@
       <circle cx="29" cy="40" r="2" fill="#d7aa95"/><circle cx="117" cy="13" r="2" fill="#d7aa95"/>
     </symbol>
   </svg>
-  <audio id="backgroundMusic" src="music/Wedding%20Song.mp3" loop preload="auto"></audio>
+  <audio id="backgroundMusic" src="music/Wedding%20Song.mp3" loop preload="none"></audio>
   <button class="music-control" id="musicControl" type="button" aria-label="Play background music" aria-pressed="false">♫ <span>Play music</span></button>
 
   <div class="envelope-intro" id="envelopeIntro" role="dialog" aria-modal="true" aria-labelledby="introTitle" hidden>

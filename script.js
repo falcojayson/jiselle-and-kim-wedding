@@ -202,19 +202,11 @@
       music.pause();
     }
   });
-  music.play().catch(updateMusicControl);
-  const musicReady = new Promise(resolve => {
-    if (music.readyState >= 2) { resolve(); return; }
-    music.addEventListener("loadeddata", resolve, { once: true });
-    music.addEventListener("error", resolve, { once: true });
-    window.setTimeout(resolve, 6000);
-  });
   const artworkReady = Promise.all([
-    preloadImage("images/satin-bow.png"),
-    preloadImage("images/floral-invitation-card.png"),
+    preloadImage("images/satin-bow-small.png"),
+    preloadImage("images/floral-invitation-card-small.jpg"),
     heroPhotoReady,
     Promise.race([document.fonts ? document.fonts.ready : Promise.resolve(), new Promise(resolve => window.setTimeout(resolve, 5000))]),
-    musicReady
   ]);
   const intro = document.getElementById("envelopeIntro");
   const introOpen = document.getElementById("envelopeOpen");
@@ -249,6 +241,7 @@
       pageAreas.forEach(area => { if (area) area.inert = true; });
       introOpen.focus({ preventScroll: true });
     }
+    music.play().catch(updateMusicControl);
     loadingScreen.classList.add("is-ready");
     window.setTimeout(() => { loadingScreen.hidden = true; }, 350);
   });

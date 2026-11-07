@@ -193,7 +193,7 @@ body.intro-active { overflow: hidden; }
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: url("images/floral-invitation-card.png") center / 100% 100% no-repeat;
+  background: url("images/floral-invitation-card-small.jpg") center / 100% 100% no-repeat;
   filter: drop-shadow(0 6px 9px #493a2d3d);
   opacity: 0;
   transform: translateY(13%) scale(.88);
@@ -233,7 +233,7 @@ body.intro-active { overflow: hidden; }
   top: 34%;
   height: 40%;
   pointer-events: none;
-  background: url("images/satin-bow.png") center / 100% 100% no-repeat;
+  background: url("images/satin-bow-small.png") center / 100% 100% no-repeat;
   filter: drop-shadow(0 5px 5px #51463b52);
 }
 .intro-prompt { font-family: "Playfair Display", Georgia, serif; font-style: italic; font-size: 18px; margin: 22px 0 10px; }
