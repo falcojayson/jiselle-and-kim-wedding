@@ -14,9 +14,11 @@
   <script src="script.js" defer></script>
 </head>
 <body>
+  <audio id="backgroundMusic" src="Christian%20Songs%20Piano.mp3" loop preload="auto"></audio>
+  <button class="music-control" id="musicControl" type="button" aria-label="Play background music" aria-pressed="false">♫ <span>Play music</span></button>
 
   <header class="site-header">
-    <a class="monogram" href="#home" aria-label="Back to top" id="monogram">J & K</a>
+    <a class="monogram" href="#home" aria-label="Back to top" id="monogram">K & J</a>
     <nav aria-label="Main navigation">
       <a href="#details">Details</a><a href="#story">Our story</a><a href="#rsvp">RSVP</a>
     </nav>
@@ -27,7 +29,7 @@
       <div class="hero-inner">
         <p class="eyebrow">Together with our families</p>
         <p class="hero-intro">joyfully invite you to celebrate the wedding of</p>
-        <h1><span id="partnerOne">Jiselle</span><span class="ampersand">&amp;</span><span id="partnerTwo">Kim</span></h1>
+        <h1><span id="partnerOne">Kim</span><span class="ampersand">&amp;</span><span id="partnerTwo">Jiselle</span></h1>
         <div class="small-rule" aria-hidden="true"></div>
         <p class="hero-date" id="heroDate">Saturday, June 20, 2027</p>
         <p class="hero-venue" id="heroVenue">Roxas City, Capiz</p>
@@ -59,6 +61,6 @@
 
     <section class="rsvp-section section-pad" id="rsvp"><p class="eyebrow">We saved you a seat</p><h2>Will you join us?</h2><p id="rsvpDeadline">Kindly reply by May 20, 2027.</p><a class="button button-light" id="rsvpButton" href="#rsvp" aria-disabled="true">RSVP form coming soon <span aria-hidden="true">↗</span></a><p class="rsvp-help" id="rsvpHelp">Add your Google Form link in config.js to enable RSVPs.</p></section>
   </main>
-  <footer><a class="footer-monogram" href="#home" id="footerNames">Jiselle & Kim</a><p>Made with love, for the people we love.</p><button id="shareButton" type="button">Copy invitation link ↗</button></footer>
+  <footer><a class="footer-monogram" href="#home" id="footerNames">Kim & Jiselle</a><p>Made with love, for the people we love.</p><button id="shareButton" type="button">Copy invitation link ↗</button></footer>
 </body>
 </html>

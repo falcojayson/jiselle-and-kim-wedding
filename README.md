@@ -29,3 +29,7 @@ GitHub Pages sites are public. Avoid private guest information on the page or in
 
 No package installation, paid hosting, database, or build step is required.
 # jiselle-and-kim-wedding
+
+## Music
+
+The included "Christian Songs Piano.mp3" starts automatically when a browser permits sound autoplay. If autoplay is blocked, guests can use the Play music button. Keep the MP3 beside "index.html" when uploading to GitHub. The file is about 18 MB, so it may take time to load on mobile data. Use music you have permission to share publicly.

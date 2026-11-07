@@ -43,4 +43,19 @@
     try { await navigator.clipboard.writeText(location.href.split("#")[0]); event.currentTarget.textContent = "Link copied ✓"; }
     catch { event.currentTarget.textContent = "Copy the address from your browser"; }
   });
-})();
+  const music = document.getElementById("backgroundMusic");
+  const musicControl = document.getElementById("musicControl");
+  const updateMusicControl = () => {
+    const playing = !music.paused;
+    musicControl.setAttribute("aria-pressed", String(playing));
+    musicControl.setAttribute("aria-label", playing ? "Pause background music" : "Play background music");
+    musicControl.querySelector("span").textContent = playing ? "Pause music" : "Play music";
+  };
+  music.addEventListener("play", updateMusicControl);
+  music.addEventListener("pause", updateMusicControl);
+  musicControl.addEventListener("click", async () => {
+    if (music.paused) {
+      try { await music.play(); } catch { updateMusicControl(); }
+    } else music.pause();
+  });
+  music.play().catch(updateMusicControl);})();

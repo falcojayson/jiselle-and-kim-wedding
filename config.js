@@ -1,7 +1,7 @@
 // Replace all sample details before publishing. Keep dates in ISO format.
 window.invitation = {
-  partnerOne: "Jiselle",
-  partnerTwo: "Kim",
+  partnerOne: "Kim",
+  partnerTwo: "Jiselle",
   date: "2027-06-20T15:00:00+08:00",
   venueSummary: "Roxas City, Capiz",
   welcomeMessage: "Every love story is special. Ours is made brighter by the people who have shared in it. We would be honored to celebrate this day with you.",
