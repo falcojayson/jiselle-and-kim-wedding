@@ -75,6 +75,7 @@ h2 em { font-weight: 400; color: #8b957e; }
 .card-icon { font-family: Georgia, serif; font-size: 42px; color: var(--gold); margin: 25px 0 13px; }
 .detail-card h3 { font-family: "Playfair Display", Georgia, serif; font-weight: 400; font-size: 31px; margin: 0 0 13px; }
 .detail-card p { font-size: 13px; color: var(--muted); margin: 7px 0; }
+.venue-map { display: block; width: 100%; height: 220px; margin: 24px 0 0; border: 1px solid #d6d1c4; border-radius: 5px; background: #e9eade; }
 .detail-card a, .calendar-link { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid var(--gold); padding-bottom: 5px; margin-top: 20px; }
 .detail-card a:hover, .calendar-link:hover { color: #927455; }
 .calendar-link { margin-top: 38px; }
