@@ -4,7 +4,29 @@
   <base target="_top">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    *{box-sizing:border-box}body{margin:0;background:#354c3e;color:#fff;font:15px Arial,sans-serif}main{max-width:520px;margin:auto;padding:8px 18px 28px}label{display:block;text-align:left;font-size:13px;font-weight:700;margin:18px 0 8px}input[type=text],textarea{width:100%;border:1px solid #cbd6c9;border-radius:4px;padding:13px 14px;font:inherit;background:#fff;color:#27372f}textarea{min-height:82px;resize:vertical}.choices{display:flex;gap:22px;justify-content:center;margin:12px 0 20px}.choices label{font-size:15px;margin:0;display:flex;align-items:center;gap:8px;cursor:pointer}.choices input{width:18px;height:18px;accent-color:#a78961}button{background:#fffdf8;color:#27372f;border:0;padding:15px 27px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;cursor:pointer;margin-top:10px}button:disabled{opacity:.6;cursor:wait}.status{min-height:42px;line-height:1.5;margin:14px 0 0}.status.error{color:#ffd7cb}.status.success{color:#e6f3df}.honeypot{position:absolute;left:-9999px}:focus-visible{outline:3px solid #d6bd9c;outline-offset:3px}
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #354c3e; color: #fff; font: 15px Arial, sans-serif; }
+    main { max-width: 520px; margin: auto; padding: 8px 18px 28px; }
+    [hidden] { display: none !important; }
+    label { display: block; text-align: left; font-size: 13px; font-weight: 700; margin: 18px 0 8px; }
+    input[type="text"], textarea { width: 100%; border: 1px solid #cbd6c9; border-radius: 4px; padding: 13px 14px; font: inherit; background: #fff; color: #27372f; }
+    textarea { min-height: 82px; resize: vertical; }
+    .choices { display: flex; gap: 22px; justify-content: center; margin: 12px 0 20px; }
+    .choices label { font-size: 15px; margin: 0; display: flex; align-items: center; gap: 8px; cursor: pointer; }
+    .choices input { width: 18px; height: 18px; accent-color: #a78961; }
+    button { background: #fffdf8; color: #27372f; border: 0; padding: 15px 27px; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; cursor: pointer; margin-top: 10px; }
+    button:disabled { opacity: .7; cursor: wait; }
+    .status { min-height: 28px; line-height: 1.5; margin: 14px 0 0; font-weight: 700; }
+    .status.error { color: #ffd7cb; }
+    .confirmation { margin: 18px 0 0; padding: 30px 24px; border: 1px solid #cad7c4; background: #fffdf8; color: #27372f; text-align: center; box-shadow: 0 12px 28px #1a2a2033; }
+    .confirmation-icon { display: grid; place-items: center; width: 52px; height: 52px; margin: 0 auto 16px; border-radius: 50%; background: #e5f0e2; color: #2d613e; font-size: 29px; font-weight: 700; }
+    .confirmation h2 { margin: 0 0 12px; font: 400 30px Georgia, serif; }
+    .confirmation p { margin: 9px 0; line-height: 1.5; }
+    .confirmation .saved-note { font-weight: 700; color: #2d613e; }
+    .confirmation .reference { margin-top: 19px; font-size: 11px; color: #617066; overflow-wrap: anywhere; }
+    .honeypot { position: absolute; left: -9999px; }
+    :focus-visible { outline: 3px solid #d6bd9c; outline-offset: 3px; }
+    @media (max-width: 400px) { .choices { gap: 12px; } .choices label { font-size: 13px; } }
   </style>
 </head>
 <body>
@@ -20,33 +42,57 @@
       <button id="submitButton" type="submit">Send RSVP</button>
       <p class="status" id="status" role="status" aria-live="polite"></p>
     </form>
+    <section class="confirmation" id="confirmation" role="status" aria-live="polite" tabindex="-1" hidden>
+      <span class="confirmation-icon" aria-hidden="true">✓</span>
+      <h2>RSVP received</h2>
+      <p class="saved-note">Your response has been saved.</p>
+      <p>Thank you for replying to Kim &amp; Jiselle. No need to send another RSVP.</p>
+      <p class="reference" id="confirmationReference"></p>
+    </section>
   </main>
   <script>
     const form = document.getElementById('rsvpForm');
     const button = document.getElementById('submitButton');
     const status = document.getElementById('status');
+    const confirmation = document.getElementById('confirmation');
+    let submitted = false;
+
     form.addEventListener('submit', function (event) {
       event.preventDefault();
-      if (!form.reportValidity()) return;
+      if (submitted || button.disabled || !form.reportValidity()) return;
       button.disabled = true;
+      button.textContent = 'Sending RSVP…';
       status.className = 'status';
-      status.textContent = 'Saving your RSVP…';
+      status.textContent = 'Saving your response. Please wait…';
       const values = Object.fromEntries(new FormData(form).entries());
+
       google.script.run
         .withSuccessHandler(function (result) {
-          button.disabled = false;
-          if (!result || !result.saved) { status.className = 'status error'; status.textContent = 'We could not confirm your RSVP. Please try again.'; return; }
-          form.reset();
-          status.className = 'status success';
-          status.textContent = 'Thank you! Your RSVP was saved.';
+          if (!result || !result.saved) {
+            showError('We could not confirm your RSVP. Please try again.');
+            return;
+          }
+          submitted = true;
+          form.hidden = true;
+          confirmation.hidden = false;
+          if (result.submissionId) {
+            document.getElementById('confirmationReference').textContent = 'Confirmation ID: ' + result.submissionId;
+          }
+          confirmation.focus({ preventScroll: true });
+          window.scrollTo(0, 0);
         })
         .withFailureHandler(function (error) {
-          button.disabled = false;
-          status.className = 'status error';
-          status.textContent = error && error.message ? error.message : 'Could not save your RSVP. Please try again.';
+          showError(error && error.message ? error.message : 'Could not save your RSVP. Please try again.');
         })
         .submitRsvp(values);
     });
+
+    function showError(message) {
+      button.disabled = false;
+      button.textContent = 'Send RSVP';
+      status.className = 'status error';
+      status.textContent = message;
+    }
   </script>
 </body>
 </html>
