@@ -32,13 +32,22 @@
     picture.src = source;
   });
   const heroPhoto = document.getElementById("heroPhoto");
-  if (data.heroPhotoUrl) {
-    heroPhoto.addEventListener("load", () => {
+  const heroPhotoReady = new Promise(resolve => {
+    if (!data.heroPhotoUrl) { resolve(false); return; }
+    let settled = false;
+    const finish = (loaded) => {
+      if (!settled) { settled = true; resolve(loaded); }
+    };
+    heroPhoto.addEventListener("load", async () => {
+      try { await heroPhoto.decode(); } catch { /* The image can still render. */ }
       heroPhoto.hidden = false;
       document.getElementById("photoPlaceholder").hidden = true;
-    });
+      finish(true);
+    }, { once: true });
+    heroPhoto.addEventListener("error", () => finish(false), { once: true });
+    window.setTimeout(() => finish(false), 20000);
     heroPhoto.src = data.heroPhotoUrl;
-  }
+  });
 
   const setText = (id, value) => {
     const node = document.getElementById(id);
@@ -203,7 +212,7 @@
   const artworkReady = Promise.all([
     preloadImage("images/satin-bow.png"),
     preloadImage("images/floral-invitation-card.png"),
-    data.heroPhotoUrl ? preloadImage(data.heroPhotoUrl) : Promise.resolve(false),
+    heroPhotoReady,
     Promise.race([document.fonts ? document.fonts.ready : Promise.resolve(), new Promise(resolve => window.setTimeout(resolve, 5000))]),
     musicReady
   ]);

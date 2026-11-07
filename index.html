@@ -25,7 +25,7 @@
         screen.classList.add('is-ready');
         window.setTimeout(function () { screen.hidden = true; }, 350);
       }
-    }, 10000);
+    }, 25000);
   </script>
   <svg class="svg-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <symbol id="floral-sprig" viewBox="0 0 150 54">
@@ -74,7 +74,7 @@
       <div class="hero-layout">
         <div class="hero-media">
           <div class="arch-outline"><div class="arch-photo">
-            <img id="heroPhoto" alt="Kim and Jiselle together" hidden>
+            <img id="heroPhoto" alt="Kim and Jiselle together" fetchpriority="high" hidden>
             <div class="photo-placeholder" id="photoPlaceholder"><span>K &amp; J</span><small>Our favorite photo together</small></div>
           </div></div>
           <svg class="photo-floral photo-floral-left" viewBox="0 0 150 54" aria-hidden="true"><use href="#floral-sprig"></use></svg>
