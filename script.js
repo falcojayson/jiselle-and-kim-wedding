@@ -2,6 +2,11 @@
   const data = window.invitation;
   if (!data) return;
 
+  const header = document.querySelector(".site-header");
+  const updateHeader = () => header.classList.toggle("is-scrolled", window.scrollY > 12);
+  updateHeader();
+  window.addEventListener("scroll", updateHeader, { passive: true });
+
   const setText = (id, value) => {
     const node = document.getElementById(id);
     if (node) node.textContent = value;
