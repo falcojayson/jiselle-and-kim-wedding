@@ -4,6 +4,7 @@ window.invitation = {
   partnerTwo: "Jiselle",
   date: "2027-07-14T09:00:00+08:00",
   venueSummary: "Roxas City, Capiz",
+  heroPhotoUrl: "images/din and kim.jpg",
   welcomeMessage: "Every love story is special. Ours is made brighter by the people who have shared in it. We would be honored to celebrate this day with you.",
   ceremony: {
     name: "Capiz Evangelical Church",

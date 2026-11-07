@@ -6,6 +6,31 @@
   const updateHeader = () => header.classList.toggle("is-scrolled", window.scrollY > 12);
   updateHeader();
   window.addEventListener("scroll", updateHeader, { passive: true });
+  const menuToggle = document.getElementById("menuToggle");
+  const siteNav = document.getElementById("siteNav");
+  const closeMenu = () => {
+    siteNav.classList.remove("is-open");
+    menuToggle.setAttribute("aria-expanded", "false");
+    menuToggle.setAttribute("aria-label", "Open navigation");
+  };
+  menuToggle.addEventListener("click", () => {
+    const open = siteNav.classList.toggle("is-open");
+    menuToggle.setAttribute("aria-expanded", String(open));
+    menuToggle.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
+  });
+  siteNav.querySelectorAll("a").forEach(link => link.addEventListener("click", closeMenu));
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") closeMenu();
+  });
+
+  const heroPhoto = document.getElementById("heroPhoto");
+  if (data.heroPhotoUrl) {
+    heroPhoto.addEventListener("load", () => {
+      heroPhoto.hidden = false;
+      document.getElementById("photoPlaceholder").hidden = true;
+    });
+    heroPhoto.src = data.heroPhotoUrl;
+  }
 
   const setText = (id, value) => {
     const node = document.getElementById(id);

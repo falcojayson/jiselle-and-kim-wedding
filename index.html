@@ -14,29 +14,49 @@
   <script src="script.js" defer></script>
 </head>
 <body>
-  <audio id="backgroundMusic" src="Christian%20Songs%20Piano.mp3" loop preload="auto"></audio>
+  <svg class="svg-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="floral-sprig" viewBox="0 0 150 54">
+      <path d="M13 43 C38 33 48 22 72 25 C91 28 107 19 137 10" fill="none" stroke="#8d9273" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M43 31 C34 30 28 25 26 18 C36 19 41 23 43 31 M55 27 C51 16 54 10 63 6 C65 16 62 22 55 27 M91 25 C92 15 99 10 108 9 C104 19 99 23 91 25 M112 18 C115 26 124 29 132 27 C128 20 120 17 112 18" fill="#a3a98b" stroke="#7d8b72" stroke-width=".8"/>
+      <path d="M71 25 C67 15 70 9 74 8 C79 10 80 16 75 22 C83 16 89 18 90 23 C89 28 82 30 76 26 C82 32 79 38 74 39 C69 38 67 33 72 27 C65 32 59 30 58 26 C59 21 65 20 71 25" fill="#e8b8a8" stroke="#bf8e83" stroke-width=".8"/>
+      <circle cx="74" cy="25" r="2.5" fill="#bc9570"/>
+      <circle cx="29" cy="40" r="2" fill="#d7aa95"/><circle cx="117" cy="13" r="2" fill="#d7aa95"/>
+    </symbol>
+  </svg>
+  <audio id="backgroundMusic" src="music/Wedding%20Song.mp3" loop preload="auto"></audio>
   <button class="music-control" id="musicControl" type="button" aria-label="Play background music" aria-pressed="false">♫ <span>Play music</span></button>
 
   <header class="site-header">
-    <a class="monogram" href="#home" aria-label="Back to top" id="monogram">K & J</a>
-    <nav aria-label="Main navigation">
-      <a href="#details">Details</a><a href="#story">Our story</a><a href="#rsvp">RSVP</a>
-    </nav>
+    <div class="header-row">
+      <a class="monogram" href="#home" aria-label="Back to top" id="monogram">K &amp; J</a>
+      <div class="header-ornament" aria-hidden="true"><span></span><svg viewBox="0 0 150 54"><use href="#floral-sprig"></use></svg><span></span></div>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="siteNav"><span></span><span></span><span></span></button>
+      <nav id="siteNav" aria-label="Main navigation">
+        <a href="#details">Details</a><a href="#story">Our story</a><a href="#rsvp">RSVP</a>
+      </nav>
+    </div>
+    <div class="mobile-header-ornament" aria-hidden="true"><span></span><svg viewBox="0 0 150 54"><use href="#floral-sprig"></use></svg><span></span></div>
   </header>
   <main>
     <section class="hero" id="home">
-      <div class="hero-ornament ornament-left" aria-hidden="true">✿</div>
-      <div class="hero-inner">
-        <p class="eyebrow">Together with our families</p>
-        <p class="hero-intro">joyfully invite you to celebrate the wedding of</p>
-        <h1><span id="partnerOne">Kim</span><span class="ampersand">&amp;</span><span id="partnerTwo">Jiselle</span></h1>
-        <div class="small-rule" aria-hidden="true"></div>
-        <p class="hero-date" id="heroDate">Wednesday, July 14, 2027</p>
-        <p class="hero-venue" id="heroVenue">Roxas City, Capiz</p>
-        <a class="button button-dark" href="#details">See the celebration <span aria-hidden="true">↗</span></a>
+      <div class="hero-layout">
+        <div class="hero-media">
+          <div class="arch-outline"><div class="arch-photo">
+            <img id="heroPhoto" alt="Kim and Jiselle together" hidden>
+            <div class="photo-placeholder" id="photoPlaceholder"><span>K &amp; J</span><small>Our favorite photo together</small></div>
+          </div></div>
+          <svg class="photo-floral photo-floral-left" viewBox="0 0 150 54" aria-hidden="true"><use href="#floral-sprig"></use></svg>
+          <svg class="photo-floral photo-floral-right" viewBox="0 0 150 54" aria-hidden="true"><use href="#floral-sprig"></use></svg>
+        </div>
+        <div class="hero-content">
+          <p class="hero-kicker">Together with our families</p>
+          <h1><span id="partnerOne">Kim</span> <span class="ampersand">&amp;</span> <span id="partnerTwo">Jiselle</span></h1>
+          <div class="hero-divider" aria-hidden="true"><span></span><svg viewBox="0 0 150 54"><use href="#floral-sprig"></use></svg><span></span></div>
+          <p class="hero-date" id="heroDate">Wednesday, July 14, 2027</p>
+          <p class="hero-venue" id="heroVenue">Roxas City, Capiz</p>
+          <a class="button button-dark" href="#details">See the celebration</a>
+        </div>
       </div>
-      <div class="hero-ornament ornament-right" aria-hidden="true">✿</div>
-      <div class="scroll-note">SCROLL TO EXPLORE <span aria-hidden="true">↓</span></div>
     </section>
 
     <section class="intro-section section-pad" id="story">

@@ -20,6 +20,7 @@ GitHub Pages sites are public. Avoid private guest information on the page or in
 ## Files
 
 - `index.html`: page sections and labels
+- `images/din and kim.jpg`: couple photo used in the hero
 - `styles.css`: responsive visual design
 - `config.js`: wedding details and RSVP link
 - `script.js`: content, countdown, calendar event, and share button
@@ -29,4 +30,4 @@ No package installation, paid hosting, database, or build step is required.
 
 ## Music
 
-The included "Christian Songs Piano.mp3" starts automatically when a browser permits sound autoplay. If autoplay is blocked, guests can use the Play music button. Keep the MP3 beside "index.html" when uploading to GitHub. The file is about 18 MB, so it may take time to load on mobile data. Use music you have permission to share publicly.
+The included "Wedding Song.mp3" starts automatically when a browser permits sound autoplay. If autoplay is blocked, guests can use the Play music button. Keep the MP3 in the `music/` folder when uploading to GitHub. The file is about 8 MB, so it may take time to load on mobile data. Use music you have permission to share publicly.
