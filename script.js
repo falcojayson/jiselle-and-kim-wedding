@@ -239,19 +239,16 @@
     window.setTimeout(() => { loadingScreen.hidden = true; }, 350);
   });
 
-    introOpen.addEventListener("click", () => {
-      if (intro.classList.contains("is-opening")) return;
-      music.play().catch(updateMusicControl);
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        finishIntro(false);
-        return;
-      }
-      intro.classList.add("is-opening");
-      introOpen.disabled = true;
-      window.setTimeout(() => finishIntro(true), 3250);
-    });
-    introSkip.addEventListener("click", () => finishIntro(false));
-    document.addEventListener("keydown", event => {
-      if (event.key === "Escape" && !intro.hidden) finishIntro(false);
-    });
+  introOpen.addEventListener("click", () => {
+    if (intro.classList.contains("is-opening")) return;
+    music.play().catch(updateMusicControl);
+    intro.classList.add("is-opening");
+    introOpen.setAttribute("aria-disabled", "true");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.setTimeout(() => finishIntro(true), reducedMotion ? 1400 : 3250);
+  });
+  introSkip.addEventListener("click", () => finishIntro(false));
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && !intro.hidden) finishIntro(false);
+  });
 })();
