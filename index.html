@@ -17,6 +17,16 @@
   <div class="loading-screen" id="loadingScreen" role="status" aria-live="polite">
     <div class="loading-inner"><span class="loading-mark">K &amp; J</span><span class="loading-spinner" aria-hidden="true"></span><span>Preparing your invitation…</span></div>
   </div>
+  <script>
+    // Last-resort escape if a script or third-party resource never finishes.
+    window.setTimeout(function () {
+      var screen = document.getElementById('loadingScreen');
+      if (screen && !screen.hidden) {
+        screen.classList.add('is-ready');
+        window.setTimeout(function () { screen.hidden = true; }, 350);
+      }
+    }, 10000);
+  </script>
   <svg class="svg-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <symbol id="floral-sprig" viewBox="0 0 150 54">
       <path d="M13 43 C38 33 48 22 72 25 C91 28 107 19 137 10" fill="none" stroke="#8d9273" stroke-width="1.5" stroke-linecap="round"/>

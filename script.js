@@ -26,9 +26,10 @@
   const loadingScreen = document.getElementById("loadingScreen");
   const preloadImage = (source) => new Promise(resolve => {
     const picture = new Image();
-    picture.onload = picture.onerror = resolve;
+    const timeout = window.setTimeout(() => resolve(false), 7000);
+    picture.onload = () => { window.clearTimeout(timeout); resolve(true); };
+    picture.onerror = () => { window.clearTimeout(timeout); resolve(false); };
     picture.src = source;
-    if (picture.complete) resolve();
   });
   const heroPhoto = document.getElementById("heroPhoto");
   if (data.heroPhotoUrl) {
@@ -202,10 +203,9 @@
   const artworkReady = Promise.all([
     preloadImage("images/satin-bow.png"),
     preloadImage("images/floral-invitation-card.png"),
-    data.heroPhotoUrl ? preloadImage(data.heroPhotoUrl) : Promise.resolve(),
-    document.fonts ? document.fonts.ready : Promise.resolve(),
-    musicReady,
-    rsvpReady
+    data.heroPhotoUrl ? preloadImage(data.heroPhotoUrl) : Promise.resolve(false),
+    Promise.race([document.fonts ? document.fonts.ready : Promise.resolve(), new Promise(resolve => window.setTimeout(resolve, 5000))]),
+    musicReady
   ]);
   const intro = document.getElementById("envelopeIntro");
   const introOpen = document.getElementById("envelopeOpen");
@@ -232,8 +232,9 @@
     } else close();
   };
 
-  artworkReady.then(() => {
-    if (!introSeen) {
+  artworkReady.then(([bowLoaded, cardLoaded]) => {
+    // Show the site directly if essential animation art is unavailable.
+    if (!introSeen && bowLoaded && cardLoaded) {
       intro.hidden = false;
       document.body.classList.add("intro-active");
       pageAreas.forEach(area => { if (area) area.inert = true; });
