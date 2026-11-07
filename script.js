@@ -202,20 +202,17 @@
       music.pause();
     }
   });
-  const artworkReady = Promise.all([
-    preloadImage("images/satin-bow-small.png"),
-    preloadImage("images/floral-invitation-card-small.jpg"),
-    heroPhotoReady,
-    Promise.race([document.fonts ? document.fonts.ready : Promise.resolve(), new Promise(resolve => window.setTimeout(resolve, 5000))]),
+  const artworkReady = Promise.race([
+    Promise.all([
+      preloadImage("images/satin-bow-small.png"),
+      preloadImage("images/floral-invitation-card-small.jpg")
+    ]),
+    new Promise(resolve => window.setTimeout(resolve, 4000))
   ]);
   const intro = document.getElementById("envelopeIntro");
   const introOpen = document.getElementById("envelopeOpen");
   const introSkip = document.getElementById("introSkip");
   const pageAreas = [document.querySelector("header"), document.querySelector("main"), document.querySelector("footer"), musicControl];
-  const introKey = "kim-jiselle-intro-seen";
-  let introSeen = false;
-  try { introSeen = sessionStorage.getItem(introKey) === "1"; } catch { /* Storage can be unavailable. */ }
-
   const finishIntro = (animateExit) => {
     if (intro.hidden) return;
     const close = () => {
@@ -225,7 +222,6 @@
       const heading = document.querySelector(".hero h1");
       heading.setAttribute("tabindex", "-1");
       heading.focus({ preventScroll: true });
-      try { sessionStorage.setItem(introKey, "1"); } catch { /* Continue without storage. */ }
     };
     if (animateExit) {
       intro.classList.add("is-leaving");
@@ -233,20 +229,16 @@
     } else close();
   };
 
-  artworkReady.then(([bowLoaded, cardLoaded]) => {
-    // Show the site directly if essential animation art is unavailable.
-    if (!introSeen && bowLoaded && cardLoaded) {
-      intro.hidden = false;
-      document.body.classList.add("intro-active");
-      pageAreas.forEach(area => { if (area) area.inert = true; });
-      introOpen.focus({ preventScroll: true });
-    }
-    music.play().catch(updateMusicControl);
+  // Show the opening on every fresh page load, even when artwork is slow.
+  intro.hidden = false;
+  document.body.classList.add("intro-active");
+  pageAreas.forEach(area => { if (area) area.inert = true; });
+  artworkReady.then(() => {
+    introOpen.focus({ preventScroll: true });
     loadingScreen.classList.add("is-ready");
     window.setTimeout(() => { loadingScreen.hidden = true; }, 350);
   });
 
-  if (!introSeen) {
     introOpen.addEventListener("click", () => {
       if (intro.classList.contains("is-opening")) return;
       music.play().catch(updateMusicControl);
@@ -262,5 +254,4 @@
     document.addEventListener("keydown", event => {
       if (event.key === "Escape" && !intro.hidden) finishIntro(false);
     });
-  }
 })();
