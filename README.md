@@ -31,3 +31,7 @@ No package installation, paid hosting, database, or build step is required.
 ## Music
 
 The included "Wedding Song.mp3" starts automatically when a browser permits sound autoplay. If autoplay is blocked, guests can use the Play music button. Keep the MP3 in the `music/` folder when uploading to GitHub. The file is about 8 MB, so it may take time to load on mobile data. Use music you have permission to share publicly.
+
+## Envelope opening
+
+The first visit in a browser tab shows an animated envelope. Tap it to open the invitation, or choose Skip animation. The opening runs once per tab session; use a new private window to preview it again. Guests who prefer reduced motion see the invitation immediately after tapping. Tapping the envelope also gives the browser a user action to start the wedding music.
