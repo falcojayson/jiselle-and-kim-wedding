@@ -1,15 +1,12 @@
 # Wedding invitation template
 
-A free, static wedding invitation for GitHub Pages. RSVP answers go to Google Forms and its linked Google Sheet. This is a separate project from HRMIS.
+A free wedding invitation for GitHub Pages. An embedded Google Apps Script form saves RSVP answers in a private Google Sheet. This is a separate project from HRMIS.
 
 ## Customize
 
-1. Open `config.js` and replace every sample name, date, venue, address, map, dress code, and note. Dates use ISO format with the Philippine offset (`+08:00`).
-2. Create a Google Form with fields such as guest name, attendance, number of seats, and dietary notes. Publish it and copy its **responder** link into `rsvpFormUrl` in `config.js`.
-3. In the Form's **Responses** tab, choose **Link to Sheets** to create or select your private response spreadsheet. Keep the spreadsheet private; never put its URL or credentials into this website.
-4. Check every detail before publishing; the initial date, times, and text are placeholders.
-5. Preview `index.html` in a local browser. Test the map links, calendar link, and RSVP form with a sample response.
-
+1. Replace the sample names, dates, times, and other details in `config.js`.
+2. Follow `google-apps-script/SETUP.md` to create the private Sheet, deploy the RSVP script, and paste its `/exec` URL into `rsvpWebAppUrl`.
+3. Preview `index.html` locally. Test the venue map links, calendar link, and RSVP on the published site.
 ## Publish on GitHub Pages
 
 1. Create a **new repository** for the invitation. Do not publish the HRMIS repository.
